@@ -11,7 +11,7 @@ fn what_is_your_name() -> String {
 #[derive(Debug)]
 enum VisitorAction {
     Accept,
-    AcceptWithNot { note: String },
+    AcceptWithNote { note: String },
     Refuse,
     Probation,
 }
@@ -35,7 +35,7 @@ impl Visitor {
     fn greet_visitor(&self) {
         match &self.action {
             VisitorAction::Accept => println!("Izok, welcome {}", self.name),
-            VisitorAction::AcceptWithNot { note } => {
+            VisitorAction::AcceptWithNote { note } => {
                 println!("Welcome {}", self.name);
                 println!("{}", note);
                 if self.age < 21 {
@@ -53,7 +53,7 @@ fn main() {
         Visitor::new("jean", VisitorAction::Accept, 45),
         Visitor::new(
             "paul",
-            VisitorAction::AcceptWithNot {
+            VisitorAction::AcceptWithNote {
                 note: String::from("Il est con, meffi"),
             },
             17,
