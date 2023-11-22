@@ -8,6 +8,7 @@ fn what_is_your_name() -> String {
     user_input.trim().to_lowercase()
 }
 
+#[derive(Debug)]
 struct Visitor {
     name: String,
     greeting: String,
@@ -26,24 +27,20 @@ impl Visitor {
     }
 }
 
-
 fn main() {
     println!("Hello mofo, what is your name ?");
     let name = what_is_your_name();
 
-    let visitor_list = [
+    let visitor_list = vec![
         Visitor::new("jean", "jean est un con"),
         Visitor::new("paul", "paul est un con"),
         Visitor::new("cul", "cul est ok"),
     ];
 
-    let known_visitor = visitor_list
-        .iter()
-        .find(|visitor| visitor.name == name);
+    let known_visitor = visitor_list.iter().find(|visitor| visitor.name == name);
 
     match known_visitor {
         Some(visitor) => visitor.greet_visitor(),
-        None => println!("Sorry, not on the damn list ! getoutaheer !")
+        None => println!("Sorry, not on the damn list ! getoutaheer !"),
     }
-
 }
