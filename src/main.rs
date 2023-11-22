@@ -28,19 +28,30 @@ impl Visitor {
 }
 
 fn main() {
-    println!("Hello mofo, what is your name ?");
-    let name = what_is_your_name();
-
-    let visitor_list = vec![
+    let mut visitor_list = vec![
         Visitor::new("jean", "jean est un con"),
         Visitor::new("paul", "paul est un con"),
         Visitor::new("cul", "cul est ok"),
     ];
 
-    let known_visitor = visitor_list.iter().find(|visitor| visitor.name == name);
+    loop {
+        println!("Hello mofo, what is your name ?");
+        let name = what_is_your_name();
 
-    match known_visitor {
-        Some(visitor) => visitor.greet_visitor(),
-        None => println!("Sorry, not on the damn list ! getoutaheer !"),
+        let known_visitor = visitor_list.iter().find(|visitor| visitor.name == name);
+
+        match known_visitor {
+            Some(visitor) => visitor.greet_visitor(),
+            None => {
+                if name.is_empty() {
+                    break;
+                } else {
+                    println!("{} is the new guy, get on that list", name);
+                    visitor_list.push(Visitor::new(&name, "New friend"))
+                }
+            }
+        }
     }
+    println!("The finale list of visitors : ");
+    println!("{:#?}", visitor_list);
 }
